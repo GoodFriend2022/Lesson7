@@ -20,7 +20,7 @@ int[,] CreateArray(int rows, int columns)// Создает двумерный м
     return array;
 }
 
-void PrintArray(int[,] array)// Возвращает дмумерный массив с вещественными числами
+void PrintMatrix(int[,] array)// Возвращает дмумерный массив с вещественными числами
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -32,9 +32,17 @@ void PrintArray(int[,] array)// Возвращает дмумерный масс
     }
 }
 
-void EverageToColumns(int[,] array)// Возвращает среднее арифметическое в каждом столбце
+void PrintArray(double[] array)// Возвращает одномерный массив
 {
-    System.Console.Write("Среднее арифметическое каждого столбца: ");
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write($"{array[i]:f2} ");
+    }
+}
+
+double[] EverageToColumns(int[,] array)// Возвращает среднее арифметическое в каждом столбце
+{
+    double[] everage = new double[array.GetLength(1)];
     for (int i = 0; i < array.GetLength(1); i++)
     {
         double sum = 0;
@@ -42,13 +50,14 @@ void EverageToColumns(int[,] array)// Возвращает среднее ари
         {
             sum += array[j, i];
         }
-        System.Console.Write($"{(sum / array.GetLength(0)):f2} ");
+        everage[i] = sum / array.GetLength(0);
     }
+    return everage;
 }
 
 int amountRows = Prompt("Введите количество строк в массиве");
 int amountColumns = Prompt("Введите количество столбцов в массиве");
 int[,] numbers = CreateArray(amountRows, amountColumns);
-PrintArray(numbers);
-EverageToColumns(numbers);
+PrintMatrix(numbers);
+PrintArray(EverageToColumns(numbers));
 
